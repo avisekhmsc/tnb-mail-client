@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://147.79.67.233:9876/api/:path*',
+      },
+    ];
+  },
+};
 
 export default nextConfig;
