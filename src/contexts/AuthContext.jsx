@@ -11,52 +11,57 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const initializeAuth = () => {
       try {
-        const response = await axios.get('/api/auth/verify', {
-          withCredentials: true
-        });
-        
-        if (response.data.user) {
-          setUser(response.data.user);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        const token = localStorage.getItem('authToken');
+        const storedUser = localStorage.getItem('user');
+        if (token && storedUser) {
+          setUser(JSON.parse(storedUser));
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
       } catch (error) {
-        console.log('No valid token found');
+        console.error('Error initializing auth:', error);
       } finally {
         setLoading(false);
       }
     };
-    
-    checkAuth();
+
+    initializeAuth();
   }, []);
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post('/api/auth/login', 
-        { email, password },
-        { withCredentials: true }
-      );
-      
+      const res = await axios.post('/api/auth/login', { email, password });
       setUser(res.data.user);
+      localStorage.setItem('authToken', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
       axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
       return true;
     } catch (error) {
+      console.error('Login error:', error);
       throw error;
     }
   };
 
   const register = async (name, email, password) => {
-    await axios.post('/api/auth/register', 
-      { name, email, password },
-      { withCredentials: true }
-    );
-    await login(email, password);
+    try {
+      const res = await axios.post('/api/auth/register', { name, email, password });
+      setUser(res.data.user);
+      localStorage.setItem('authToken', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+      return true;
+    } catch (error) {
+      console.error('Register error:', error);
+      throw error;
+    }
   };
 
   const logout = async () => {
     try {
       setUser(null);
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
       delete axios.defaults.headers.common['Authorization'];
       router.push('/login');
     } catch (error) {

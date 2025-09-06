@@ -102,7 +102,7 @@ const Signup = () => {
         const name = `${formData.firstName} ${formData.lastName}`.trim();
         const email = `${formData.username}@tnbmail.com`;
         await register(name, email, formData.password);
-        router.push('/inbox');
+        router.push('/login');
       } catch (err) {
         alert('Signup failed');
       }

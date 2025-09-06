@@ -5,11 +5,12 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 const EmailView = ({ email }) => {
+  console.log(email);
   const router = useRouter();
 
   const handleTrash = async () => {
     try {
-      await axios.put(`/api/emails/${email._id}/trash`);
+      await axios.put(`/api/emails/${email.id}/trash`);
       router.back();
     } catch (err) {
       alert('Error moving to trash');
@@ -27,9 +28,13 @@ const EmailView = ({ email }) => {
       <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded">
         {email.body}
       </div>
-      <button onClick={handleTrash} className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-        Move to Trash
-      </button>
+      {email.is_trash? (
+        <button onClick={handleTrash} className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+          Move to Trash
+        </button>
+      ) : (
+        <div className="mt-4 text-red-600 font-bold">This email is in Trash</div>
+      )}
     </div>
   );
 };

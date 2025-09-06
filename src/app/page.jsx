@@ -1,9 +1,13 @@
-import React from 'react'
+'use client';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/login');
+  }, [router]);
+
+  return null; // Render nothing while redirecting
 }
-
-export default page

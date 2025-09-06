@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter, useParams } from 'next/navigation';
-import Layout from '../../../components/Layout';
 import EmailView from '../../../components/EmailView';
 import { AuthContext } from '../../../contexts/AuthContext';
 
@@ -36,9 +35,7 @@ const EmailPage = () => {
   const handleSearch = () => {}; // Placeholder; add if needed
 
   return (
-    <Layout onSearch={handleSearch}>
       <EmailView email={email} />
-    </Layout>
   );
 };
 

@@ -1,26 +1,22 @@
 'use client';
 
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Header from '../components/Header';
 import MailAppSidebar from '../components/Sidebar';
 
 const Layout = ({ children, onSearch }) => {
   const { user, loading } = useContext(AuthContext);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const router = useRouter();
+  const pathname = usePathname();
+
+  // Define public paths that don't require authentication
+  const publicPaths = ['/login', '/signup', '/'];
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed((prev) => !prev);
   };
-
-  useEffect(() => {
-    // Redirect to login if not authenticated and loading is complete
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
 
   if (loading) {
     return (
@@ -30,8 +26,14 @@ const Layout = ({ children, onSearch }) => {
     );
   }
 
+  // Render only children for public paths
+  if (publicPaths.includes(pathname)) {
+    return <>{children}</>;
+  }
+
+  // Render full layout for authenticated users
   if (!user) {
-    // Return null or a fallback UI while redirecting
+    // This should be handled by middleware or page-level redirects, but as a fallback, return null
     return null;
   }
 
