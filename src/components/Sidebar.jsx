@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -13,12 +12,10 @@ import {
   Users,
   Settings,
   Plus,
-  Search,
   Folder,
   Tag,
   Shield,
   HelpCircle,
-  X,
   ChevronDown,
   ChevronRight
 } from 'lucide-react';
@@ -72,25 +69,34 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
 
   return (
     <div
-      className={`bg-white shadow-lg transition-all duration-300 flex flex-col ${
+      className={`bg-white shadow-xl transition-all duration-300 flex flex-col ${
         isCollapsed ? 'w-16' : 'w-72'
-      } h-screen`}
+      } h-screen border-r border-gray-100`}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!isCollapsed ? (
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <Mail className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-semibold text-gray-800">TNB Mail App</span>
+          <div className="flex items-center space-x-3">
+            <img
+              src="https://tastenbite.com/wp-content/uploads/2021/06/TB-PNG.png"
+              alt="TNB Logo"
+              className="h-10 w-auto transition-transform duration-300 hover:scale-105"
+            />
+            <span className="text-xl font-bold text-gray-800 tracking-tight">
+              <span className="text-blue-600">TNB</span> Mail
+            </span>
           </div>
         ) : (
           <div className="p-0">
             <button
-              className="w-full bg-gradient-to-r from-white to-white text-black rounded-lg flex items-center justify-center hover:from-gray-300 hover:to-gray-300 transition-all duration-200 shadow-md hover:shadow-lg"
+              onClick={toggleSidebar}
+              className="w-full bg-white text-black rounded-lg flex items-center justify-center hover:bg-gray-100 transition-all duration-200 shadow-sm hover:shadow-md"
             >
-              <Mail className="w-10 h-10" />
+              <img
+                src="https://tastenbite.com/wp-content/uploads/2021/06/TB-PNG.png"
+                alt="TNB Logo"
+                className="h-10 w-auto"
+              />
             </button>
           </div>
         )}
@@ -101,10 +107,10 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
         <div className="p-4">
           <button
             onClick={() => router.push('/compose')}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-3 px-4 flex items-center justify-center space-x-2 hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-3 px-4 flex items-center justify-center space-x-2 hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
           >
             <Plus className="w-5 h-5" />
-            <span className="font-medium">Compose</span>
+            <span className="font-semibold">Compose</span>
           </button>
         </div>
       )}
@@ -114,7 +120,7 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
         <div className="p-2">
           <button
             onClick={() => router.push('/compose')}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-3 flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-3 flex items-center justify-center hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
           >
             <Plus className="w-5 h-5" />
           </button>
@@ -139,18 +145,18 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
                   }}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 group ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'bg-blue-50 text-blue-700 border-r-4 border-blue-600'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-blue-700' : 'text-gray-500'}`} />
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-blue-600'}`} />
                     {!isCollapsed && <span className="font-medium">{item.label}</span>}
                   </div>
                   {!isCollapsed && item.count > 0 && (
                     <span
                       className={`text-xs px-2 py-1 rounded-full ${
-                        isActive ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
+                        isActive ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-700'
                       }`}
                     >
                       {item.count}
@@ -166,16 +172,16 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
             <div className="mt-8">
               <button
                 onClick={() => toggleSection('folders')}
-                className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800 transition-colors duration-200"
               >
                 <div className="flex items-center space-x-2">
-                  <Folder className="w-4 h-4" />
+                  <Folder className="w-4 h-4 text-gray-500" />
                   <span>Folders</span>
                 </div>
                 {expandedSections.folders ? (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
                 ) : (
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
                 )}
               </button>
 
@@ -191,7 +197,7 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                         activeItem === folder.id
                           ? 'bg-blue-50 text-blue-700'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
                       }`}
                     >
                       <span>{folder.label}</span>
@@ -212,16 +218,16 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
             <div className="mt-6">
               <button
                 onClick={() => toggleSection('labels')}
-                className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800 transition-colors duration-200"
               >
                 <div className="flex items-center space-x-2">
-                  <Tag className="w-4 h-4" />
+                  <Tag className="w-4 h-4 text-gray-500" />
                   <span>Labels</span>
                 </div>
                 {expandedSections.labels ? (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
                 ) : (
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
                 )}
               </button>
 
@@ -237,7 +243,7 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
                       className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                         activeItem === label.id
                           ? 'bg-blue-50 text-blue-700'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
                       }`}
                     >
                       <div className={`w-3 h-3 rounded-full ${label.color}`}></div>
@@ -262,14 +268,14 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
                 setActiveItem(item.id);
                 router.push(item.route);
               }}
-              className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${
+              className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm ${
                 activeItem === item.id
                   ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
               }`}
             >
-              <Icon className="w-5 h-5" />
-              {!isCollapsed && <span className="text-sm font-medium">{item.label}</span>}
+              <Icon className={`w-5 h-5 ${activeItem === item.id ? 'text-blue-600' : 'text-gray-500'}`} />
+              {!isCollapsed && <span className="font-medium">{item.label}</span>}
             </button>
           );
         })}
@@ -279,12 +285,12 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
       {!isCollapsed && (
         <div className="p-4 border-t border-gray-200">
           <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">
-            <Shield className="w-4 h-4" />
+            <Shield className="w-4 h-4 text-gray-500" />
             <span>Storage</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div
-              className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 h-2.5 rounded-full transition-all duration-300"
               style={{ width: '68%' }}
             ></div>
           </div>

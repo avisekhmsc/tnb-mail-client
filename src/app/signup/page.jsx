@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -104,7 +103,7 @@ const Signup = () => {
         await register(name, email, formData.password);
         router.push('/login');
       } catch (err) {
-        alert('Signup failed');
+        setErrors({ submit: 'Signup failed. Please try again.' });
       }
     }
   };
@@ -124,19 +123,24 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-sm border border-gray-200">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg border border-gray-100 transform transition-all duration-300 hover:shadow-2xl">
         {/* Logo */}
         <div className="text-center">
-          <div className="text-2xl font-normal text-gray-600 tracking-tight">
+          <img
+            src="https://tastenbite.com/wp-content/uploads/2021/06/TB-PNG.png"
+            alt="TNB Logo"
+            className="mx-auto h-16 w-auto mb-4 transition-transform duration-300 hover:scale-105"
+          />
+          <div className="text-3xl font-bold text-gray-800 tracking-tight">
             <span className="text-blue-600">TNB</span> Mail
           </div>
         </div>
 
         {/* Header */}
         <div className="text-center">
-          <h2 className="text-2xl font-normal text-gray-900">Create your account</h2>
-          <p className="mt-2 text-base text-gray-600">to continue to TNB Mail</p>
+          <h2 className="text-2xl font-semibold text-gray-900">Create Your Account</h2>
+          <p className="mt-2 text-base text-gray-500">Join TNB Mail today</p>
         </div>
 
         {/* Form */}
@@ -155,11 +159,11 @@ const Signup = () => {
                 onChange={handleInputChange}
                 className={`appearance-none relative block w-full px-4 py-3 border ${
                   errors.firstName ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200`}
-                placeholder=""
+                } placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all duration-200 shadow-sm hover:shadow-md`}
+                placeholder="Enter first name"
               />
               {errors.firstName && (
-                <p className="mt-1 text-xs text-red-600">{errors.firstName}</p>
+                <p className="mt-1 text-xs text-red-600 animate-fade-in">{errors.firstName}</p>
               )}
             </div>
             <div className="flex-1">
@@ -174,11 +178,11 @@ const Signup = () => {
                 onChange={handleInputChange}
                 className={`appearance-none relative block w-full px-4 py-3 border ${
                   errors.lastName ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200`}
-                placeholder=""
+                } placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all duration-200 shadow-sm hover:shadow-md`}
+                placeholder="Enter last name"
               />
               {errors.lastName && (
-                <p className="mt-1 text-xs text-red-600">{errors.lastName}</p>
+                <p className="mt-1 text-xs text-red-600 animate-fade-in">{errors.lastName}</p>
               )}
             </div>
           </div>
@@ -197,15 +201,15 @@ const Signup = () => {
                 onChange={handleInputChange}
                 className={`appearance-none relative block w-full px-4 py-3 border ${
                   errors.username ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 pr-28`}
-                placeholder=""
+                } placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all duration-200 pr-28 shadow-sm hover:shadow-md`}
+                placeholder="Enter username"
               />
-              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">
+              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 text-sm">
                 @tnbmail.com
               </span>
             </div>
             {errors.username && (
-              <p className="mt-1 text-xs text-red-600">{errors.username}</p>
+              <p className="mt-1 text-xs text-red-600 animate-fade-in">{errors.username}</p>
             )}
           </div>
 
@@ -223,8 +227,8 @@ const Signup = () => {
                 onChange={handleInputChange}
                 className={`appearance-none relative block w-full px-4 py-3 pr-12 border ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200`}
-                placeholder=""
+                } placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all duration-200 shadow-sm hover:shadow-md`}
+                placeholder="Enter password"
               />
               <button
                 type="button"
@@ -232,9 +236,9 @@ const Signup = () => {
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                  <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                  <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                 )}
               </button>
             </div>
@@ -244,9 +248,9 @@ const Signup = () => {
                   <span className="text-xs text-gray-500">Password strength:</span>
                   <span className="text-xs text-gray-600">{getStrengthText()}</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-1">
+                <div className="w-full bg-gray-200 rounded-full h-1.5">
                   <div
-                    className={`h-1 rounded-full transition-all duration-300 ${getStrengthColor()}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${getStrengthColor()}`}
                     style={{ width: `${passwordStrength}%` }}
                   ></div>
                 </div>
@@ -256,7 +260,7 @@ const Signup = () => {
               Use 8 or more characters with a mix of letters, numbers & symbols
             </p>
             {errors.password && (
-              <p className="mt-1 text-xs text-red-600">{errors.password}</p>
+              <p className="mt-1 text-xs text-red-600 animate-fade-in">{errors.password}</p>
             )}
           </div>
 
@@ -274,8 +278,8 @@ const Signup = () => {
                 onChange={handleInputChange}
                 className={`appearance-none relative block w-full px-4 py-3 pr-12 border ${
                   errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200`}
-                placeholder=""
+                } placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all duration-200 shadow-sm hover:shadow-md`}
+                placeholder="Confirm password"
               />
               <button
                 type="button"
@@ -283,14 +287,14 @@ const Signup = () => {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
                 {showConfirmPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                  <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                  <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors duration-200" />
                 )}
               </button>
             </div>
             {errors.confirmPassword && (
-              <p className="mt-1 text-xs text-red-600">{errors.confirmPassword}</p>
+              <p className="mt-1 text-xs text-red-600 animate-fade-in">{errors.confirmPassword}</p>
             )}
           </div>
 
@@ -303,40 +307,45 @@ const Signup = () => {
                 type="checkbox"
                 checked={formData.agreeToTerms}
                 onChange={handleInputChange}
-                className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                className="focus:ring-blue-600 h-4 w-4 text-blue-600 border-gray-300 rounded transition-all duration-200"
               />
             </div>
             <div className="ml-3 text-sm">
               <label htmlFor="agreeToTerms" className="text-gray-600">
                 I agree to the{' '}
-                <a href="#" className="text-blue-600 hover:text-blue-500 hover:underline">
+                <a href="#" className="text-blue-600 hover:text-blue-700 hover:underline transition-all duration-200">
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href="#" className="text-blue-600 hover:text-blue-500 hover:underline">
+                <a href="#" className="text-blue-600 hover:text-blue-700 hover:underline transition-all duration-200">
                   Privacy Policy
                 </a>
               </label>
             </div>
           </div>
           {errors.agreeToTerms && (
-            <p className="text-xs text-red-600">{errors.agreeToTerms}</p>
+            <p className="text-xs text-red-600 animate-fade-in">{errors.agreeToTerms}</p>
+          )}
+
+          {/* Submit Error */}
+          {errors.submit && (
+            <p className="text-xs text-red-600 animate-fade-in">{errors.submit}</p>
           )}
 
           {/* Form Actions */}
           <div className="flex items-center justify-between">
             <a
               href="/"
-              className="text-sm font-medium text-blue-600 hover:text-blue-500 hover:underline"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline transition-all duration-200"
             >
               Sign in instead
             </a>
             <button
               type="button"
               onClick={handleSubmit}
-              className="group relative flex justify-center py-2.5 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+              className="group relative flex justify-center py-2.5 px-6 border border-transparent text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105"
             >
-              Next
+              Create Account
             </button>
           </div>
         </div>
