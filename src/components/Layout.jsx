@@ -28,7 +28,7 @@ const Layout = ({ children, onSearch }) => {
 
   // Render only children for public paths
   if (publicPaths.includes(pathname)) {
-    return <>{children}</>;
+    return <div className="">{children}</div>;
   }
 
   // Render full layout for authenticated users
@@ -41,8 +41,9 @@ const Layout = ({ children, onSearch }) => {
     <div className="flex min-h-screen">
       <MailAppSidebar isCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
       <div className="flex-1 flex flex-col">
-        <Header onSearch={onSearch} toggleSidebar={toggleSidebar} isSidebarCollapsed={isSidebarCollapsed} />
-        <main className="flex-1 bg-gray-50 p-6">{children}</main>
+        <Header isCollapsed={isSidebarCollapsed} onSearch={onSearch} toggleSidebar={toggleSidebar} isSidebarCollapsed={isSidebarCollapsed} />
+        <main className={`flex-1 bg-gray-50 p-6  ${
+        isSidebarCollapsed ? 'ml-16' : 'ml-72'}`}>{children}</main>
       </div>
     </div>
   );

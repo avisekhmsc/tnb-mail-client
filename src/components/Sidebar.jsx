@@ -69,7 +69,7 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
 
   return (
     <div
-      className={`bg-white shadow-xl transition-all duration-300 flex flex-col ${
+      className={`bg-white shadow-xl transition-all duration-300 flex flex-col fixed left-0 top-0 h-screen ${
         isCollapsed ? 'w-16' : 'w-72'
       } h-screen border-r border-gray-100`}
     >
@@ -156,10 +156,10 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
                   {!isCollapsed && item.count > 0 && (
                     <span
                       className={`text-xs px-2 py-1 rounded-full ${
-                        isActive ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-700'
+                        isActive ? 'bg-blue-100 text-blue-700' : 'bg-white text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-700'
                       }`}
                     >
-                      {item.count}
+
                     </span>
                   )}
                 </button>
@@ -168,7 +168,7 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
           </div>
 
           {/* Folders Section */}
-          {!isCollapsed && (
+          {/* {!isCollapsed && (
             <div className="mt-8">
               <button
                 onClick={() => toggleSection('folders')}
@@ -211,7 +211,7 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
                 </div>
               )}
             </div>
-          )}
+          )} */}
 
           {/* Labels Section */}
           {!isCollapsed && (
@@ -291,10 +291,10 @@ export default function MailAppSidebar({ isCollapsed, toggleSidebar }) {
           <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div
               className="bg-gradient-to-r from-blue-600 to-blue-700 h-2.5 rounded-full transition-all duration-300"
-              style={{ width: '68%' }}
+              style={{ width: '2%' }}
             ></div>
           </div>
-          <p className="text-xs text-gray-500 mt-1">6.8 GB of 10 GB used</p>
+          <p className="text-xs text-gray-500 mt-1">0 GB of 10 GB used</p>
         </div>
       )}
     </div>

@@ -22,6 +22,10 @@ const EmailView = ({ email }) => {
       attachments = [];
     }
     attachments = arr;
+    console.log("attachments",attachments);
+    attachments.map((att, index) => {
+      console.log(`${process.env.NEXT_PUBLIC_API_URL}/public/${att}`);
+    });
   } catch (error) {
     console.error('Error parsing attachments:', error);
     attachments = [];
@@ -76,7 +80,7 @@ const EmailView = ({ email }) => {
             {attachments.map((attachment, index) => (
               <div key={index} className="relative group">
                 <img
-                  src={`/public${attachment}`}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/public/${attachment}`}
                   alt={`Attachment ${index + 1}`}
                   className="w-full h-48 object-cover rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
                   onError={(e) => {
@@ -84,7 +88,7 @@ const EmailView = ({ email }) => {
                   }}
                 />
                 <a
-                  href={attachment}
+                  href={`${process.env.NEXT_PUBLIC_API_URL}/public/${attachment}`}
                   download
                   className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg text-white text-sm font-medium"
                 >
