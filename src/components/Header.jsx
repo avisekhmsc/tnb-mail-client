@@ -27,7 +27,7 @@ const Header = ({ isCollapsed, onSearch, toggleSidebar, isSidebarCollapsed }) =>
       <div className="flex-grow mx-6 bg-white/10 backdrop-blur-md rounded-full flex items-center px-3 py-1.5 border border-white/20">
       </div>
       <div className="flex items-center space-x-4">
-        <span className="text-sm font-medium bg-white text-black border border-black px-3 py-1 rounded-full"
+        <span className="text-sm font-medium bg-white text-black border border-black px-3 py-1 rounded-full hover:cursor-pointer"
         onClick={() => router.push('/profile')}
         >
           {user?.email}

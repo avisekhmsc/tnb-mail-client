@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
+import Loader from '../../components/Loader';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,15 +12,15 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
-  const { login, user, loading } = useContext(AuthContext);
+  const { login, user, authToken } = useContext(AuthContext);
   const router = useRouter();
 
   // Redirect if already logged in
   useEffect(() => {
-    if (!loading && user) {
+    if (authToken && user) {
       router.push('/inbox');
     }
-  }, [user, loading, router]);
+  }, [user, authToken, router]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -71,10 +72,10 @@ const Login = () => {
     }
   };
 
-  if (loading) {
+  if (authToken && user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100">
-        <div className="text-2xl font-semibold text-gray-700 animate-pulse">Loading...</div>
+        <Loader />
       </div>
     );
   }

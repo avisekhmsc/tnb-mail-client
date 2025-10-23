@@ -1,13 +1,20 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-
+import { useEffect,useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 export default function Home() {
+
   const router = useRouter();
+  const { user, authToken,  loading } = useContext(AuthContext);
 
   useEffect(() => {
-    router.push('/login');
-  }, [router]);
+    if(authToken && user){
+      router.push('/inbox'); // redirect if logged in
+    }
+    if (loading || !authToken || !user) {
+      router.push('/login'); // redirect if not logged in
+    }
+  }, [router, user, authToken, loading]);
 
-  return null; // Render nothing while redirecting
+  router.push('/login'); // Render nothing while redirecting
 }

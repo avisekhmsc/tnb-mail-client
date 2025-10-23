@@ -277,7 +277,7 @@ const Compose = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-white to-white p-4 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-white via-white to-white px-4 flex justify-center">
       <div className={`bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl transition-all duration-500 hover:shadow-3xl ${isMinimized ? 'w-80 h-16' : 'w-full max-w-4xl'} overflow-hidden`}>
         
         {/* Header */}

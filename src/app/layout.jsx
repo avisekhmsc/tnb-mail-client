@@ -1,6 +1,7 @@
   import './globals.css';
   import { AuthProvider } from '../contexts/AuthContext';
   import Layout from '@/components/Layout';
+  import { ProtectedRoute } from '@/ProtectedRoute';
 
   export const metadata = {
     title: 'TNB Mail',
@@ -18,7 +19,9 @@
         <body>
           <AuthProvider>
             <Layout>
+              <ProtectedRoute>
               {children}
+              </ProtectedRoute>
             </Layout>
           </AuthProvider>
         </body>
